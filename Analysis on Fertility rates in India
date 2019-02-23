@@ -1,0 +1,64 @@
+## 1. Extract data on age specific ferility rates for only India sorted in ascending order of year
+SELECT *
+FROM `bigquery-public-data.census_bureau_international.age_specific_fertility_rates`
+WHERE country_name = "India"
+ORDER BY year 
+## Ans: https://docs.google.com/spreadsheets/d/14xVE89V3k0YbY3AfQSc42RlysBboWGG32kO50rCqwgE/edit?usp=sharing
+
+##2. Average total fertility rate in India For the past decade from 2008 to 2018
+SELECT avg(total_fertility_rate)
+FROM `bigquery-public-data.census_bureau_international.age_specific_fertility_rates`
+WHERE country_name = "India" AND year between 2008 and 2018
+## Ans: 2.552336363636363
+
+## 3.Find highest fertility rate between 1992 to 2018 for India
+SELECT 
+max(total_fertility_rate)
+FROM `bigquery-public-data.census_bureau_international.age_specific_fertility_rates`
+WHERE country_name="India" AND year between 1991 and 2018  
+## Ans:3.6395
+
+## 4.No of unique countries included in the dataset
+SELECT count(distinct(country_name))
+FROM `bigquery-public-data.census_bureau_international.age_specific_fertility_rates`
+## Ans:228
+
+## 5. No of years in which China has a gross reproduction rate of over 3
+SELECT count(year)
+FROM `bigquery-public-data.census_bureau_international.age_specific_fertility_rates`
+WHERE country_name= "China" AND gross_reproduction_rate > 3
+## Ans: 0
+
+## 6. least no of male births per female birts  2013  in the world
+SELECT year, min(sex_ratio_at_birth) AS min_sex_ratio
+FROM `bigquery-public-data.census_bureau_international.age_specific_fertility_rates`
+WHERE year = 2013
+GROUP BY year
+## Ans 0.8309
+
+## 7. Arrange fertility rate for China fron highestto lowest
+SELECT year, total_fertility_rate
+FROM `bigquery-public-data.census_bureau_international.age_specific_fertility_rates`
+WHERE country_name="China" 
+ORDER BY  total_fertility_rate DESC
+
+## 8.  no. of people in each sex in Fiji
+SELECT sex,count(sex)
+FROM `bigquery-public-data.census_bureau_international.midyear_population_age_sex`
+WHERE country_name="Fiji"
+GROUP BY sex
+## Ans: Female=65, Male= 65
+
+## 9. Maximum life expectancy in Slovenia
+SELECT max(life_expectancy)
+FROM `bigquery-public-data.census_bureau_international.mortality_life_expectancy`
+WHERE country_name="Slovenia"
+## Ans: 83.54
+
+##10.  Maximum life expectancy in Slovenia
+SELECT avg(infant_mortality_female)
+FROM `bigquery-public-data.census_bureau_international.mortality_life_expectancy`
+WHERE country_name="India"
+## Ans:	40.34683333333332
+
+
